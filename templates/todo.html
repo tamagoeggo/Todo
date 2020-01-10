@@ -1,0 +1,25 @@
+<h1>This is the todo page.</h1>
+
+<!-- <ul>
+  <li>temporary todo item A</li>
+  <li>temporary todo item B</li>
+</ul> -->
+
+<ul>
+  {% for todo_item in all_items %} <!-- for loop in django specific way -->
+    <li>{{ todo_item.content }}
+      <form action="/deletetodo/{{todo_item.id}}/"
+          style="display: inline;"
+          method="post">{% csrf_token %}
+        <input type="submit" value="Delete"/>
+      </form>
+    </li>
+  {% endfor %}
+</ul>
+
+<!-- When user submits this form, user's browser submits a post
+request to the /addTodo url with the data inside the form -->
+<form action="/addtodo/" method="post">{% csrf_token %}
+  <input type="text" name="content"/>
+  <input type="submit" value="Add"/>
+</form>
